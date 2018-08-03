@@ -1,0 +1,15 @@
+[Unit]
+Description=gpsproxy
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/var/www/html/gpsproxy
+ExecStart=/var/www/html/gpsproxy/start.sh
+SyslogIdentifier=gpsproxy
+Restart=on-failure
+RestartSec=5
+
+
+[Install]
+WantedBy=multi-user.target
