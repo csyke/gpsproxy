@@ -44,6 +44,7 @@ replaceFolders?() {
 
 replaceConfig?() {
 	echo "copying system files"
+		mkdir -p "../config/"
 		echo -n "config"
 			cp config/config.system.js.example ../config/config.system.js
 		echo "..done"
@@ -204,7 +205,13 @@ main() {
 	#Overwrite environment variables (in .env)
 	askYesNoQuestion "Would you like to overwrite environment variables Y(es)/N(o)? Please answer Yes if this is the first time you are doing this setup." "overwriteEnv?"
 	
+	#Overwrite existing configurations
+	askYesNoQuestion "Would you like to replace config file? You will have to make the configurations again. Please answer Y(es) if this is the very first time you are doing this set-up. Otherwise you will have to come back here again. Please answer Y(es) or N(o)"  "replaceConfig?"
+
 	#read from ../.env
+
+	# rsync -a ./ root@traccarproxy.cseco.co.ke:/var/www/html/gpsproxy/
+
 	readConfig
 	[[ $ENV = 'dev' ]] && { 
 		PORT=3010 && URL=$BASE_URL_DEV 
@@ -215,11 +222,17 @@ main() {
 
 	#port Config for you
 	tput bold;  echo "Mr. Brian: I am now creating links for you."; tput sgr0
-	for file in "../install/portConfig/"*
+	THISPLACE=$(pwd)
+	echo "$THISPLACE/../install/portConfig/"
+
+	for file in "$THISPLACE/../install/portConfig/"*
 	do
+	echo $file
 	  if [ -f "$file" ]; then
-	      tput setaf 2;  echo "Mr. Brian: I am linking $file"; tput sgr0
-	      sudo ln -s $file /etc/nginx/sites-enabled/
+	  		FILENAME=$(echo $file | rev | cut -d"/" -f1 | rev)
+			tput setaf 2;  echo "Mr. Brian: I am linking $file"; tput sgr0
+			sudo rm "/etc/nginx/sites-enabled/$FILENAME"
+			sudo ln -s $file /etc/nginx/sites-enabled/
 	  fi
 	done
 
@@ -238,6 +251,7 @@ main() {
 	tput bold;  echo "Mr. Brian: I am now installing node modules for you."; tput sgr0
 	cd ../
 	yarn install
+	cd setup
 
 	#start server
 	{

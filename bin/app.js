@@ -143,7 +143,8 @@ app.use(function(err, req, res, next) {
 let start_server = async () => {
   let csystem_ = new csystem
   let [err, care, dontcare] = [];
-  [err, dontcare] = await to(csystem_.dbSync(false));
+  // [err, dontcare] = await to(csystem_.dbSync(false));
+  [err, dontcare] = [null,null];
   if(err) {
     console.log(`Db error: ${err}`)
     process.exit(1);
