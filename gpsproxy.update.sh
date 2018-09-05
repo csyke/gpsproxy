@@ -13,5 +13,6 @@ do
    {
    		sleep $checktime
    		git pull origin master
+   		./setup/nginxConfig.sh
    }
 done

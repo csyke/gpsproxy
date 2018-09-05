@@ -44,12 +44,15 @@ replaceFolders?() {
 
 replaceConfig?() {
 	echo "copying system files"
-		mkdir -p "../config/"
+		mkdir -p "../config/"  #change to copy all files in config
 		echo -n "config"
 			cp config/config.system.js.example ../config/config.system.js
 		echo "..done"
 		echo -n "passport config"
 			cp config/config.passport.js.example ../config/config.passport.js
+		echo "..done"
+		echo -n "gpsservers config"
+			cp config/config.gpsservers.js.example ../config/config.gpsservers.js
 		echo "..done"
 		askYesNoQuestion "Would you like to edit system config now? y/n" editFile? "../config/config.system.js"
 		askYesNoQuestion "Would you like to edit passport config now? y/n" editFile? "../config/config.passport.js"
@@ -223,7 +226,6 @@ main() {
 	#port Config for you
 	tput bold;  echo "Mr. Brian: I am now creating links for you."; tput sgr0
 	THISPLACE=$(pwd)
-	echo "$THISPLACE/../install/portConfig/"
 
 	for file in "$THISPLACE/../install/portConfig/"*
 	do

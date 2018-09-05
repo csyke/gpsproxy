@@ -27,7 +27,7 @@ class router
 		let app;
 		let [err, care, dontcare] = [];
 
-		console.log('loading page...')
+		// console.log('loading page...')
 
 		try 
 		{
