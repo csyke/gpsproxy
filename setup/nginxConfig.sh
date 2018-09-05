@@ -5,6 +5,7 @@ main() {
 	tput bold;  echo "Mr. Brian: I am now creating links for you."; tput sgr0
 	THISPLACE=$(pwd)
 
+	cd setup
 	for file in "$THISPLACE/../install/portConfig/"*
 	do
 	echo $file
