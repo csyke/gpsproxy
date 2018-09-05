@@ -3,9 +3,11 @@
 main() {
 	#port Config for you
 	tput bold;  echo "Mr. Brian: I am now creating links for you."; tput sgr0
-	THISPLACE=$(pwd)
 
 	cd setup
+	THISPLACE=$(pwd)
+
+
 	for file in "$THISPLACE/../install/portConfig/"*
 	do
 	echo $file
